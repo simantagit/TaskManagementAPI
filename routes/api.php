@@ -24,4 +24,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::get('/tasks', [TasksController::class, 'tasks']);
+Route::post('/tasks/add', [TasksController::class, 'add']);
+Route::put('/tasks/{id}', [TasksController::class, 'update']);
+Route::delete('/tasks/{id}', [TasksController::class, 'delete']);
 

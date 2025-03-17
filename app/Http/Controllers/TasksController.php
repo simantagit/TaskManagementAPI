@@ -23,4 +23,48 @@ class TasksController extends Controller
         ]);
     }
 
+    public function add(Request $request){
+        $validateData=$request->validate([
+            'name'=>'required|unique:task',
+            'description'=>'required',
+        ]);
+        Task::create($validateData);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Task created successfully'
+            
+        ]);
+    }
+
+    public function update(Request $request,$id){
+
+        $params = [
+            'name' => $request->name,
+            'description' => $request->description,
+           
+        ];
+
+        if (Task::where('id', $id)->update($params)) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Task updated successfully'  
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'filed',
+                'message' => 'Task updated failed'
+                
+            ]);
+        }
+    }
+
+    public function delete($id){
+        Task::destroy($id);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Task deleted successfully'
+            
+        ]);
+    }
+
 }
